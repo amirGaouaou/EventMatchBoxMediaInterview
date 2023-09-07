@@ -18,9 +18,6 @@ export const ProfileDropdown: FC<ProfileDropdownProps> = ({
   return (
     <div className="dropdown dropdown-end">
       <div className="justify-center items-center flex">
-        <label className="text-center">
-          <span className="text-lg ">{name}</span>
-        </label>
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar mr-2">
           {avatar ? (
             <Image src={avatar} alt="profile-picture"></Image>
@@ -37,7 +34,9 @@ export const ProfileDropdown: FC<ProfileDropdownProps> = ({
         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li>
-          <span className="mb-5 text-lg">Email : {email}</span>
+          <span className="mb-5 text-lg">
+            {name} {email}
+          </span>
         </li>
         <li>
           <a>Profile</a>

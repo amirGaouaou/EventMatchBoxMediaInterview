@@ -1,24 +1,28 @@
 {
   "events": [
     {
+      "id": 1,
       "name": "AAP experience",
       "banner": "image 21.png",
       "visibility": "public",
       "attendees": []
     },
     {
+      "id": 2,
       "name": "International Dogs conference",
       "banner": "image 22.png",
       "visibility": "public",
       "attendees": []
     },
     {
+      "id": 3,
       "name": "World Allergy Congress",
       "banner": "image 23.png",
       "visibility": "private",
       "attendees": []
     },
     {
+      "id": 4,
       "name": "Southwest Dental Conference",
       "banner": "image 24.png",
       "visibility": "private",

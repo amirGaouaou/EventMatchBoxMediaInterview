@@ -3,18 +3,18 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/app/api/auth/[...nextauth]/option";
 import { redirect } from "next/navigation";
 
-import db from "@/lib/localdb";
+import initDB from "@/lib/localdb";
+import EventList from "../components/EventList";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
-  console.log(db);
-
   if (!session) {
     redirect("/auth/signin");
   }
-  console.log(session);
+  const db = await initDB();
+
   return (
-    <div className="h-screen">
+    <div className="h-full w-full">
       <div className="navbar bg-slate-900">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-xl">MatchBox Media</a>
@@ -28,7 +28,7 @@ export default async function Dashboard() {
         </div>
       </div>
 
-      <main className="w-screen">
+      <main className="w-full">
         <div className="flex py-10 bg-gray-950  justify-center">
           <section className="mt-5 flex flex-col w-2/4 items-center">
             <span className="text-8xl text-white font-bold mt-5 ">
@@ -48,19 +48,8 @@ export default async function Dashboard() {
             </div>
           </section>
         </div>
-
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-3">
-            <div className="card shadow-lg bg-base-100">
-              <div className="card-body">
-                <div className="flex flex-col items-center">
-                  <div className="avatar">
-                    <div className="w-20 rounded-full"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-row justify-between px-20 py-10">
+          <EventList events={db.data.events} userType={session.user.group} />
         </div>
       </main>
     </div>

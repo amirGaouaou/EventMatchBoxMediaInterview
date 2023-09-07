@@ -124,8 +124,12 @@ const authOptions: AuthOptions = {
       //   console.debug("Token after data transfer: ", token);
       //   // some custom logic here
       // }
-      console.log("JWT", token);
-      return token;
+      return { ...token, ...user };
+    },
+
+    async session({ session, token, user }) {
+      session.user.group = token.group as GroupType;
+      return session;
     },
   },
 };
