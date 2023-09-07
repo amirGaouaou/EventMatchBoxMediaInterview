@@ -20,35 +20,37 @@ const EditEventModal = forwardRef<HTMLDialogElement, EditEventModalProps>(
 
     const handleFile = async (file: File) => {
       const reader = new FileReader();
+      setUploading(true);
 
       reader.onloadend = ({ target }) => {
         console.log(target);
         if (!target) return;
         const csv = Papa.parse(target.result as string, { header: true });
+        setUploading(false);
         if (csv.errors.length > 0) return alert("Invalid CSV file");
         if (csv.data.length === 0) return alert("Empty CSV file");
         setFormData({
           ...formData,
           attendees: csv.data as Attendee[],
         });
-        setUploading(false);
       };
 
       reader.readAsText(file);
-      setUploading(false);
     };
 
     const handleFileInputChange = (
       event: React.ChangeEvent<HTMLInputElement>
     ) => {
       const fileUploaded = event.target.files?.[0];
-      if (!fileUploaded) return;
+      if (!fileUploaded) {
+        setUploading(false);
+        return;
+      }
       handleFile(fileUploaded);
     };
     const handleUploadCSVClick = (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       uploadAttendeesRef.current?.click();
-      setUploading(true);
     };
 
     console.log(formData);
